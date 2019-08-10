@@ -52,14 +52,14 @@
                                 </connections>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lkN-qX-5pv">
-                                <rect key="frame" x="0.0" y="189" width="414" height="567"/>
+                                <rect key="frame" x="15" y="189" width="384" height="567"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodoViewCell" rowHeight="60" id="N3C-dc-9TP" customClass="TodoViewCell" customModule="ToDo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="28" width="384" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="N3C-dc-9TP" id="erR-Jf-dqt">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OTf-ID-frq">
@@ -80,7 +80,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                                 </button>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" secondItem="i1r-Iu-Up0" secondAttribute="trailing" id="ACZ-J7-FR6"/>
                                                                 <constraint firstItem="i1r-Iu-Up0" firstAttribute="top" secondItem="kKo-ld-oia" secondAttribute="top" id="BRh-w7-di6"/>
@@ -110,7 +110,7 @@
                                                             <state key="normal" image="outline_delete_black"/>
                                                         </button>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" red="0.95901615947175889" green="0.96585407491435227" blue="0.98636782124213196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="kKo-ld-oia" firstAttribute="leading" secondItem="OTf-ID-frq" secondAttribute="leading" constant="10" id="7ha-3A-8M9"/>
                                                         <constraint firstItem="eAW-vd-y9X" firstAttribute="leading" secondItem="kKo-ld-oia" secondAttribute="trailing" constant="10" id="Dda-6h-xre"/>
@@ -224,10 +224,10 @@
                             <constraint firstItem="FLf-l9-7Vw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Q0z-oX-Mqr"/>
                             <constraint firstItem="px6-BV-k4E" firstAttribute="top" secondItem="lkN-qX-5pv" secondAttribute="bottom" constant="15" id="TzB-pf-ERZ"/>
                             <constraint firstAttribute="bottom" secondItem="FLf-l9-7Vw" secondAttribute="bottom" constant="20" id="U4m-kO-U7l"/>
-                            <constraint firstItem="lkN-qX-5pv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bIl-Zi-9DI"/>
+                            <constraint firstItem="lkN-qX-5pv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="bIl-Zi-9DI"/>
                             <constraint firstItem="FLf-l9-7Vw" firstAttribute="top" secondItem="px6-BV-k4E" secondAttribute="bottom" constant="10" id="bfb-Q2-WoK"/>
                             <constraint firstItem="1km-AV-fnp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cW9-MC-eMl"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lkN-qX-5pv" secondAttribute="trailing" id="iFD-rR-O1v"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lkN-qX-5pv" secondAttribute="trailing" constant="15" id="iFD-rR-O1v"/>
                             <constraint firstItem="1km-AV-fnp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="j1e-W1-RmV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FLf-l9-7Vw" secondAttribute="trailing" id="uA9-8p-LHr"/>
                             <constraint firstItem="Z56-Tl-ouH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="xcN-wQ-qDo"/>

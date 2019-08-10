@@ -50,19 +50,22 @@ class ViewController: UIViewController {
             if let _cell = cell as? TodoViewCell, let _self = self {
                 _cell.setData(model)
                 _cell.deleteButton.rx.tap.bind {
+                    print("delete")
                     _self.todoViewModel.deleteItem(model)
                     }
-                    .disposed(by: _self.bag)
+                    .disposed(by: _cell.bag)
                 
                 _cell.checkButton.rx.tap.bind {
-                    model.doneStatus = !model.doneStatus
-                    if model.doneStatus {
-                        _cell.checkDotView.backgroundColor = UIColor.cyan
-                    } else {
-                        _cell.checkDotView.backgroundColor = UIColor.gray
+                    if let _item = _cell.todoItem {
+                        _item.doneStatus = !_item.doneStatus
+                        if _item.doneStatus {
+                            _cell.checkDotView.backgroundColor = doneColor
+                        } else {
+                            _cell.checkDotView.backgroundColor = UIColor.gray
+                        }
+                        _self.todoViewModel.updateData()
                     }
-                    DataController.shared.saveContext()
-                }.disposed(by: _self.bag)
+                }.disposed(by: _cell.bag)
             }
             }
             .disposed(by: bag)
@@ -121,16 +124,6 @@ class ViewController: UIViewController {
     
 
 }
-
-//extension ViewController: UITextFieldDelegate {
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        if let text = self.todoNameTf.text, text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != ""  {
-//            self.todoViewModel.addItem(text)
-//        }
-//        self.todoNameTf.text = ""
-//        return true
-//    }
-//}
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

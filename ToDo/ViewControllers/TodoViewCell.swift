@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import RxSwift
+
+let doneColor = UIColor(displayP3Red: 66.0/255.0, green: 181.0/255.0, blue: 255.0/255.0, alpha: 1.0)
 
 class TodoViewCell: UITableViewCell {
     @IBOutlet weak var checkButton: UIButton!
@@ -15,16 +18,20 @@ class TodoViewCell: UITableViewCell {
     @IBOutlet weak var checkDotView: UIView!
     @IBOutlet weak var bgView: UIView!
     
+    var bag = DisposeBag()
+    
     var todoItem: TodoItem?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         bgView.layer.cornerRadius = 5.0
-        bgView.layer.borderColor = UIColor.lightGray.cgColor
-        bgView.layer.borderWidth = 2.0
         
         checkDotView.layer.cornerRadius = checkDotView.frame.size.height/2
+    }
+    
+    override func prepareForReuse() {
+        bag = DisposeBag()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -37,7 +44,7 @@ class TodoViewCell: UITableViewCell {
         todoItem = item
         nameLabel.text = item.name
         if item.doneStatus {
-            checkDotView.backgroundColor = UIColor.cyan
+            checkDotView.backgroundColor = doneColor
         } else {
             checkDotView.backgroundColor = UIColor.gray
         }
