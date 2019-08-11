@@ -33,12 +33,16 @@ class ViewController: UIViewController {
             .map { self.todoNameTf.text }
             .filter { $0 != nil }
             .map { $0! }
-            .subscribe(onNext: { (text) in
+            .subscribe(onNext: { [weak self] (text) in
                 // Code here...
-                if let text = self.todoNameTf.text, text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != ""  {
-                    self.todoViewModel.addItem(text)
+                if let _self = self, let text = self?.todoNameTf.text, text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != ""  {
+                    _self.todoViewModel.addItem(text)
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
+                        let indexPath = IndexPath.init(row: _self.todoViewModel.displayedData.value.count - 1, section: 0)
+                        _self.tableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.bottom, animated: true)
+                    })
                 }
-                self.todoNameTf.text = ""
+                self?.todoNameTf.text = ""
             }).disposed(by: self.bag)
         
         tableView

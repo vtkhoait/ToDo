@@ -19,25 +19,17 @@ enum DataState {
 
 class TodoViewModel: NSObject {
     let status = BehaviorRelay<DataState>(value: .all)
-    var allData = [TodoModel]()
+    lazy var allData = [TodoModel]()
     let displayedData = BehaviorRelay<[TodoModel]>(value: [TodoModel]())
     let bag = DisposeBag()
     
     override init() {
         super.init()
-        
-//        getData()
         status.subscribe(onNext: { [weak self] (state) in
             self?.getRender(state)
         }).disposed(by: bag)
         
     }
-    
-//    func getData() {
-//        if let data = DataController.shared.getAllData() {
-//            allData = data
-//        }
-//    }
     
     func getRender(_ state: DataState) {
         var result = [TodoModel]()
@@ -69,7 +61,7 @@ class TodoViewModel: NSObject {
     func addItem(_ name: String) {
         var id: Int = 1
         if let _item = allData.last {
-            id = Int(_item.id + 2)
+            id = Int(_item.id + 1)
         }
         let item = TodoModel.init(id, name: name, doneStatus: false)
         let ref = Database.database().reference(withPath: "todo_list")
