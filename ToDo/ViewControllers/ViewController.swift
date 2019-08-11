@@ -75,8 +75,15 @@ class ViewController: UIViewController {
         setupButtonAction()
         
     }
-
+    
     func setupUI() {
+        
+        let attributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.black,
+            NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14.0)
+        ]
+        todoNameTf.attributedPlaceholder = NSAttributedString(string: "Enter todo name here", attributes:attributes)
+        
         let gradient = CAGradientLayer()
         gradient.frame = headerView.bounds
         gradient.colors = [grayColor.cgColor, doneColor.cgColor]
