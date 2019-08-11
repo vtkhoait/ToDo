@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        todoViewModel.getData()
         setupUI()
         
         todoNameTf.rx.controlEvent(UIControl.Event.editingDidEndOnExit)
@@ -60,7 +60,7 @@ class ViewController: UIViewController {
                     } else {
                         _cell.checkDotView.backgroundColor = UIColor.gray
                     }
-                    _self.todoViewModel.updateData()
+                    _self.todoViewModel.updateData(items: [model])
                 }.disposed(by: _cell.bag)
             }
             }
@@ -82,13 +82,14 @@ class ViewController: UIViewController {
     
     func setupButtonAction() {
         toggleButton.rx.tap.bind {
-            
+            var temp = [TodoModel]()
             for cell in self.tableView.visibleCells {
                 if let _cell = cell as? TodoViewCell, let todoItem = _cell.todoItem {
                     todoItem.doneStatus = !todoItem.doneStatus
+                    temp.append(todoItem)
                 }
             }
-            self.todoViewModel.updateData()
+            self.todoViewModel.updateData(items:temp )
             }
             .disposed(by: bag)
         

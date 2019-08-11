@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Firebase
 
 enum DataState {
     case all
@@ -18,28 +19,28 @@ enum DataState {
 
 class TodoViewModel: NSObject {
     let status = BehaviorRelay<DataState>(value: .all)
-    var allData = [TodoItem]()
-    let displayedData = BehaviorRelay<[TodoItem]>(value: [TodoItem]())
+    var allData = [TodoModel]()
+    let displayedData = BehaviorRelay<[TodoModel]>(value: [TodoModel]())
     let bag = DisposeBag()
     
     override init() {
         super.init()
         
-        getData()
+//        getData()
         status.subscribe(onNext: { [weak self] (state) in
             self?.getRender(state)
         }).disposed(by: bag)
         
     }
     
-    func getData() {
-        if let data = DataController.shared.getAllData() {
-            allData = data
-        }
-    }
+//    func getData() {
+//        if let data = DataController.shared.getAllData() {
+//            allData = data
+//        }
+//    }
     
     func getRender(_ state: DataState) {
-        var result = [TodoItem]()
+        var result = [TodoModel]()
         switch state {
         case .all:
             result.append(contentsOf: allData)
@@ -51,28 +52,45 @@ class TodoViewModel: NSObject {
         displayedData.accept(result)
     }
     
+    func deleteItem(_ item: TodoModel) {
+        let ref = Database.database().reference(withPath: "todo_list")
+        ref.child("\(item.id)").removeValue()
+        getData()
+        getRender(status.value)
+    }
+    
+    func updateData(items: [TodoModel]) {
+        let ref = Database.database().reference(withPath: "todo_list")
+        for it in items {
+            ref.child("\(it.id)").setValue(it.toAnyObject())
+        }
+    }
+    
     func addItem(_ name: String) {
-        var id: Int32 = 1
+        var id: Int = 1
         if let _item = allData.last {
-            id = _item.id + 1
+            id = Int(_item.id + 2)
         }
+        let item = TodoModel.init(id, name: name, doneStatus: false)
+        let ref = Database.database().reference(withPath: "todo_list")
         
-        DataController.shared.addNewItem(id, name: name, doneStatus: false)
-        getData()
-        if status.value == .all || status.value == .active {
-            getRender(status.value)
+        ref.child("\(id)").setValue(item.toAnyObject())
+    }
+    
+    func getData() {
+        
+        let ref = Database.database().reference(withPath: "todo_list")
+        ref.observe(.value) { [weak self] (snapshot) in
+            if let _self = self {
+                _self.allData.removeAll()
+                for object in snapshot.children.allObjects {
+                    if let ob = object as? DataSnapshot, let item = TodoModel.init(snapshot: ob) {
+                        _self.allData.append(item)
+                    }
+                }
+                _self.getRender(_self.status.value)
+            }
         }
-    }
-    
-    func deleteItem(_ item: TodoItem) {
-        DataController.shared.deleteData(item)
-        getData()
-        getRender(status.value)
-    }
-    
-    func updateData() {
-        DataController.shared.saveContext()
-        getRender(status.value)
     }
 
 }

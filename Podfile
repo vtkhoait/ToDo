@@ -7,6 +7,8 @@ target 'ToDo' do
 
     pod 'RxSwift', '~> 5'
     pod 'RxCocoa', '~> 5'
+    pod ‘Firebase/Core‘
+    pod ‘Firebase/Database‘
 
   # Pods for ToDo
 

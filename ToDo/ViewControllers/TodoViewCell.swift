@@ -21,7 +21,7 @@ class TodoViewCell: UITableViewCell {
     
     var bag = DisposeBag()
     
-    var todoItem: TodoItem?
+    var todoItem: TodoModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,7 +41,7 @@ class TodoViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setData(_ item: TodoItem) {
+    func setData(_ item: TodoModel) {
         todoItem = item
         nameLabel.text = item.name
         if item.doneStatus {
