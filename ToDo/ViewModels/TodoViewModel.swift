@@ -11,7 +11,6 @@ import RxSwift
 import RxCocoa
 
 enum DataState {
-    case toggleAll
     case all
     case done
     case active
@@ -42,8 +41,6 @@ class TodoViewModel: NSObject {
     func getRender(_ state: DataState) {
         var result = [TodoItem]()
         switch state {
-        case .toggleAll:
-             result.append(contentsOf: allData)
         case .all:
             result.append(contentsOf: allData)
         case .done:

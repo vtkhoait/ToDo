@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 
 let doneColor = UIColor(displayP3Red: 66.0/255.0, green: 181.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+let grayColor = UIColor(displayP3Red: 211.0/255.0, green: 211.0/255.0, blue: 211.0/255.0, alpha: 1.0)
 
 class TodoViewCell: UITableViewCell {
     @IBOutlet weak var checkButton: UIButton!

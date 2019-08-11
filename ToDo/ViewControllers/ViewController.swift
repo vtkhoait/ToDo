@@ -34,7 +34,6 @@ class ViewController: UIViewController {
             .map { $0! }
             .subscribe(onNext: { (text) in
                 // Code here...
-                print("dsssdsd")
                 if let text = self.todoNameTf.text, text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != ""  {
                     self.todoViewModel.addItem(text)
                 }
@@ -50,21 +49,18 @@ class ViewController: UIViewController {
             if let _cell = cell as? TodoViewCell, let _self = self {
                 _cell.setData(model)
                 _cell.deleteButton.rx.tap.bind {
-                    print("delete")
                     _self.todoViewModel.deleteItem(model)
                     }
                     .disposed(by: _cell.bag)
                 
                 _cell.checkButton.rx.tap.bind {
-                    if let _item = _cell.todoItem {
-                        _item.doneStatus = !_item.doneStatus
-                        if _item.doneStatus {
-                            _cell.checkDotView.backgroundColor = doneColor
-                        } else {
-                            _cell.checkDotView.backgroundColor = UIColor.gray
-                        }
-                        _self.todoViewModel.updateData()
+                    model.doneStatus = !model.doneStatus
+                    if model.doneStatus {
+                        _cell.checkDotView.backgroundColor = doneColor
+                    } else {
+                        _cell.checkDotView.backgroundColor = UIColor.gray
                     }
+                    _self.todoViewModel.updateData()
                 }.disposed(by: _cell.bag)
             }
             }
@@ -80,14 +76,19 @@ class ViewController: UIViewController {
         allButton.layer.cornerRadius = 5.0
         doneButton.layer.cornerRadius = 5.0
         activeButton.layer.cornerRadius = 5.0
+        allButton.isSelected = true
+        allButton.backgroundColor = doneColor
     }
     
     func setupButtonAction() {
         toggleButton.rx.tap.bind {
-            if !self.toggleButton.isSelected {
-                self.toggleButton.isSelected = true
-                self.todoViewModel.status.accept(.toggleAll)
+            
+            for cell in self.tableView.visibleCells {
+                if let _cell = cell as? TodoViewCell, let todoItem = _cell.todoItem {
+                    todoItem.doneStatus = !todoItem.doneStatus
+                }
             }
+            self.todoViewModel.updateData()
             }
             .disposed(by: bag)
         
@@ -97,6 +98,9 @@ class ViewController: UIViewController {
                 self.todoViewModel.status.accept(.all)
                 self.doneButton.isSelected = false
                 self.activeButton.isSelected = false
+                self.allButton.backgroundColor = doneColor
+                self.doneButton.backgroundColor = grayColor
+                self.activeButton.backgroundColor = grayColor
             }
             }
             .disposed(by: bag)
@@ -107,6 +111,9 @@ class ViewController: UIViewController {
                 self.todoViewModel.status.accept(.done)
                 self.allButton.isSelected = false
                 self.activeButton.isSelected = false
+                self.doneButton.backgroundColor = doneColor
+                self.allButton.backgroundColor = grayColor
+                self.activeButton.backgroundColor = grayColor
             }
             }
             .disposed(by: bag)
@@ -117,6 +124,9 @@ class ViewController: UIViewController {
                 self.todoViewModel.status.accept(.active)
                 self.allButton.isSelected = false
                 self.doneButton.isSelected = false
+                self.activeButton.backgroundColor = doneColor
+                self.allButton.backgroundColor = grayColor
+                self.doneButton.backgroundColor = grayColor
             }
             }
             .disposed(by: bag)
