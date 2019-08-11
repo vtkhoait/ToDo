@@ -97,7 +97,9 @@ class ViewController: UIViewController {
     }
     
     func setupButtonAction() {
-        toggleButton.rx.tap.bind {
+        toggleButton.rx.tap
+            .throttle(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
+            .bind {
             var temp = [TodoModel]()
             for cell in self.tableView.visibleCells {
                 if let _cell = cell as? TodoViewCell, let todoItem = _cell.todoItem {
