@@ -12,6 +12,7 @@ import RxSwift
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var todoNameTf: UITextField!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var toggleButton: UIButton!
@@ -72,6 +73,21 @@ class ViewController: UIViewController {
     }
 
     func setupUI() {
+        let gradient = CAGradientLayer()
+        gradient.frame = headerView.bounds
+        gradient.colors = [grayColor.cgColor, doneColor.cgColor]
+        gradient.startPoint = CGPoint(x: 0.5, y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
+        headerView.layer.insertSublayer(gradient, at: 0)
+
+        let gradient2 = CAGradientLayer()
+        gradient2.frame = toggleButton.bounds
+        gradient2.colors = [grayColor.cgColor, doneColor.cgColor]
+        gradient2.startPoint = CGPoint(x: 0.45, y: 0.5)
+        gradient2.endPoint = CGPoint(x: 1.0, y: 0.5)
+        gradient2.cornerRadius = 5.0
+        toggleButton.layer.insertSublayer(gradient2, at: 0)
+        
         toggleButton.layer.cornerRadius = 5.0
         allButton.layer.cornerRadius = 5.0
         doneButton.layer.cornerRadius = 5.0

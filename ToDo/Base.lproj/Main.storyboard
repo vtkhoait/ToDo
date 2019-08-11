@@ -63,7 +63,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OTf-ID-frq">
-                                                    <rect key="frame" x="5" y="5" width="404" height="50"/>
+                                                    <rect key="frame" x="5" y="5" width="374" height="50"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kKo-ld-oia">
                                                             <rect key="frame" x="10" y="10" width="30" height="30"/>
@@ -93,7 +93,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAW-vd-y9X">
-                                                            <rect key="frame" x="50" y="10" width="288" height="30"/>
+                                                            <rect key="frame" x="50" y="10" width="258" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="qcs-bB-0cg"/>
                                                             </constraints>
@@ -102,7 +102,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uek-6F-ndR">
-                                                            <rect key="frame" x="348" y="10" width="46" height="30"/>
+                                                            <rect key="frame" x="318" y="10" width="46" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="46" id="I3A-mP-hyN"/>
                                                                 <constraint firstAttribute="height" constant="30" id="Zbb-qN-8ia"/>
@@ -238,6 +238,7 @@
                         <outlet property="activeButton" destination="Sho-OP-SLA" id="k8j-gm-Dtw"/>
                         <outlet property="allButton" destination="CWH-sH-qgO" id="zLE-jt-5j0"/>
                         <outlet property="doneButton" destination="UaW-X0-x54" id="9l7-yh-73j"/>
+                        <outlet property="headerView" destination="1km-AV-fnp" id="kTV-Wy-R9e"/>
                         <outlet property="tableView" destination="lkN-qX-5pv" id="Qy7-Xf-PgN"/>
                         <outlet property="todoNameTf" destination="Z56-Tl-ouH" id="6SX-3i-Uoq"/>
                         <outlet property="toggleButton" destination="px6-BV-k4E" id="6R5-Dw-I7D"/>
