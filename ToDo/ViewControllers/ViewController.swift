@@ -23,6 +23,14 @@ class ViewController: UIViewController {
     private let bag = DisposeBag()
     private let todoViewModel = TodoViewModel()
     
+    let gradient = CAGradientLayer()
+    var gradientSet = [[CGColor]]()
+    var currentGradient: Int = 0
+    
+    let gradientOne = grayColor.cgColor
+    let gradientTwo = doneColor.cgColor
+    let gradientThree = UIColor.white.cgColor
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -78,18 +86,23 @@ class ViewController: UIViewController {
     
     func setupUI() {
         
+        gradientSet.append([gradientOne, gradientTwo])
+        gradientSet.append([gradientTwo, gradientThree])
+        gradientSet.append([gradientThree, gradientOne])
+        
+        gradient.frame = headerView.bounds
+        gradient.colors = gradientSet[currentGradient]
+        gradient.startPoint = CGPoint(x:0.5, y:0.5)
+        gradient.endPoint = CGPoint(x:1.0, y:0.5)
+        gradient.drawsAsynchronously = true
+        headerView.layer.insertSublayer(gradient, at: 0)
+        animateGradient()
+        
         let attributes = [
             NSAttributedString.Key.foregroundColor: UIColor.black,
             NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14.0)
         ]
         todoNameTf.attributedPlaceholder = NSAttributedString(string: "Enter todo name here", attributes:attributes)
-        
-        let gradient = CAGradientLayer()
-        gradient.frame = headerView.bounds
-        gradient.colors = [grayColor.cgColor, doneColor.cgColor]
-        gradient.startPoint = CGPoint(x: 0.5, y: 0.5)
-        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
-        headerView.layer.insertSublayer(gradient, at: 0)
 
         let gradient2 = CAGradientLayer()
         gradient2.frame = toggleButton.bounds
@@ -105,6 +118,23 @@ class ViewController: UIViewController {
         activeButton.layer.cornerRadius = 5.0
         allButton.isSelected = true
         allButton.backgroundColor = doneColor
+        
+    }
+    
+    func animateGradient() {
+        if currentGradient < gradientSet.count - 1 {
+            currentGradient += 1
+        } else {
+            currentGradient = 0
+        }
+        
+        let gradientChangeAnimation = CABasicAnimation(keyPath: "colors")
+        gradientChangeAnimation.delegate = self
+        gradientChangeAnimation.duration = 5.0
+        gradientChangeAnimation.toValue = gradientSet[currentGradient]
+        gradientChangeAnimation.fillMode = CAMediaTimingFillMode.forwards
+        gradientChangeAnimation.isRemovedOnCompletion = false
+        gradient.add(gradientChangeAnimation, forKey: "colorChange")
     }
     
     func setupButtonAction() {
@@ -171,3 +201,11 @@ extension ViewController: UITableViewDelegate {
     }
 }
 
+extension ViewController: CAAnimationDelegate {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        if flag {
+            gradient.colors = gradientSet[currentGradient]
+            animateGradient()
+        }
+    }
+}
